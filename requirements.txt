@@ -1,0 +1,15 @@
+fastapi==0.103.2
+uvicorn==0.23.2
+google-cloud-storage==2.11.0
+pydantic==2.4.2
+
+# --------------------------------------------------------------------------
+# Add your machine learning frameworks (Uncomment and adjust versions below)
+# --------------------------------------------------------------------------
+
+scikit-learn==1.3.1
+torch==2.1.0 --index-url https://download.pytorch.org/whl/cpu
+tensorflow-cpu==2.15.0
+joblib==1.3.2
+pandas==2.1.1
+numpy==1.26.0

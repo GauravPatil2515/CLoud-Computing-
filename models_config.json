@@ -1,0 +1,12 @@
+{
+  "fraud_model": {
+    "path": "models/fraud.pkl",
+    "framework": "sklearn",
+    "input_type": "tabular"
+  },
+  "image_model": {
+    "path": "models/cnn.pt",
+    "framework": "pytorch",
+    "input_type": "tensor"
+  }
+}

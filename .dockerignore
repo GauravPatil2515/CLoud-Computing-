@@ -1,0 +1,30 @@
+# Exclude source control
+.git
+.gitignore
+
+# Exclude python bytecode
+*.pyc
+*.pyo
+__pycache__
+
+# Exclude virtual environments
+venv
+.venv
+env/
+
+# Exclude logs
+*.log
+
+# Exclude local model files (we want them fetched dynamically from GCS)
+*.pt
+*.h5
+*.pkl
+*.bin
+
+# Exclude Docker setup files
+Dockerfile
+.dockerignore
+
+# Exclude IDE configurations
+.vscode/
+.idea/
