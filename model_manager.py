@@ -25,6 +25,8 @@ def register_model(name: str, path: str, framework: str, input_type: str):
         "input_type": input_type
     }
     save_registry()
+    # Invalidate the cache for this model to ensure fresh load if it was overwritten
+    load_model.cache_clear()
 
 @functools.lru_cache(maxsize=3)
 def load_model(name: str):
