@@ -55,8 +55,9 @@ def predict(name: str, data):
     config = MODEL_REGISTRY[name]
 
     if config["framework"] == "sklearn":
-        # sklearn models generally expect 2D arrays
-        import numpy as np
+        # sklearn models expect 2D arrays shaped as [n_samples, n_features]
+        if isinstance(data, list) and data and isinstance(data[0], list):
+            return model.predict(data).tolist()
         return model.predict([data]).tolist()
     elif config["framework"] == "pytorch":
         tensor = torch.tensor(data).float()

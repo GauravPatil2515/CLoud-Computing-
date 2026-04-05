@@ -1,6 +1,8 @@
 from fastapi import FastAPI, HTTPException, UploadFile, File, Form, Depends, Security
 from fastapi.security.api_key import APIKeyHeader
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from typing import List, Any
 import os
@@ -8,6 +10,17 @@ import shutil
 import model_manager
 
 app = FastAPI(title="Multi-Tenant Model Platform")
+
+# Serve static files (frontend)
+app.mount("/static", StaticFiles(directory="."), name="static")
+
+@app.get("/")
+def serve_frontend():
+    return FileResponse("index.html")
+
+@app.get("/index.html")
+def serve_index():
+    return FileResponse("index.html")
 
 # Configure CORS (Restrict in production)
 app.add_middleware(
@@ -80,6 +93,12 @@ def predict_generic(model_name: str, payload: GenericInferenceRequest):
         # If the input type implies flat tabular but we sent array of arrays, or similar, 
         # the model_manager handles raw list data ingestion generically.
         # But we pass the first row for single inference or handle it inside predict.
+        
+        # For the frontend demo of the image classifier: if it receives [1,3,224,224] we mock the tensor data
+        # so it doesn't crash the browser trying to transfer 150k numbers in JSON!
+        import numpy as np
+        if model_name == "image_model" and data == [[1, 3, 224, 224]]:
+            data = np.random.randn(1, 3, 224, 224).tolist()
         
         # We'll pass the exact payload list over to the manager which uses lru_cache loading
         result = model_manager.predict(model_name, data)

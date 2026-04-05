@@ -87,6 +87,7 @@ curl http://127.0.0.1:8000/models
 ### Upload a Model
 ```bash
 curl -X POST "http://127.0.0.1:8000/upload_model" \
+  -H "X-API-Key: super-secret-default-key" \
   -F "name=my_model" \
   -F "framework=sklearn" \
   -F "input_type=tabular" \
@@ -96,6 +97,7 @@ curl -X POST "http://127.0.0.1:8000/upload_model" \
 ### Run Inference
 ```bash
 curl -X POST "http://127.0.0.1:8000/predict/my_model" \
+  -H "X-API-Key: super-secret-default-key" \
   -H "Content-Type: application/json" \
   -d '{"inputs": [[100.0, 50.0, 1]]}'
 ```
