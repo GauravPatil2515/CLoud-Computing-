@@ -8,5 +8,10 @@
     "path": "models/cnn.pt",
     "framework": "pytorch",
     "input_type": "tensor"
+  },
+  "fraud_model_copy": {
+    "path": "models/fraud.pkl",
+    "framework": "sklearn",
+    "input_type": "tabular"
   }
 }
